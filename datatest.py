@@ -50,7 +50,7 @@ class DataTest(object):
             self.failed += 1
             self.errors.append('''Bad format in %s at id %s:
                 Expected to match %s
-                Found %s'\n''' % (column, row_id, regex, found))
+                Found %s\n''' % (column, row_id, regex, found))
 
 
     def matches_all(self, column, regex):
