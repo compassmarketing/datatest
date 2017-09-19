@@ -25,6 +25,7 @@ class DataTest(object):
     def _warn_finish(self):
         if not self.finished:
             print 'ERROR: DateTest.finish() NOT CALLED: NO TEST OUTPUT SHOWN!'
+            sys.exit(1)
 
 
     def equals(self, row_id, column, value):
