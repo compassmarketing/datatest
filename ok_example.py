@@ -15,8 +15,8 @@ TDF = pd.DataFrame({'char':['a', 'b', 'c'], 'num':[1, 2, 3]}, index=['j1', 'j2',
 
 DATA_TEST = DataTest(TDF)
 DATA_TEST.equals('j1', 'char', 'a')
-DATA_TEST.equals('j1', 'num', 1)
-DATA_TEST.matches('j1', 'char', r'\D')
+DATA_TEST.equals('j2', 'num', 2)
+DATA_TEST.matches('j3', 'char', r'\D')
 DATA_TEST.matches('j1', 'num', r'\d')
 DATA_TEST.matches_all('char', '[a-z]')
 DATA_TEST.matches_all('num', '[0-9]')

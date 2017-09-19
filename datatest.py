@@ -15,6 +15,8 @@ class DataTest(object):
         if not isinstance(data_frame, pd.DataFrame):
             raise TypeError('input to test object was not a pandas.DataFrame')
 
+        self.ids = set(self.data.index.tolist())
+        self.checked_ids = []
         self.errors = []
         self.count = 0
         self.failed = 0
@@ -31,6 +33,7 @@ class DataTest(object):
     def equals(self, row_id, column, value):
         """test that the value at the given row, col index in matches value"""
         self.count += 1
+        self.checked_ids.append(row_id)
 
         found = self.data.at[row_id, column]
         if not found == value:
@@ -42,6 +45,8 @@ class DataTest(object):
     def matches(self, row_id, column, regex):
         """test that the value at the given row, col index in matches regex"""
         self.count += 1
+        self.checked_ids.append(row_id)
+
         rex = re.compile(regex)
 
         found = self.data.at[row_id, column]
@@ -73,6 +78,11 @@ class DataTest(object):
     def finish(self):
         """ report errors and exit w/code """
         self.finished = True
+
+        unchecked_ids = list(self.ids.difference(set(self.checked_ids)))
+        if unchecked_ids:
+            print 'WARNING: The following IDs were not tested at all: %s' % ' '.join(unchecked_ids)
+
         if self.errors:
             print 'ERROR: %d/%d tests failed:\n' % (self.failed, self.count)
             for err in self.errors:
