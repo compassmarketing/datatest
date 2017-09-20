@@ -42,6 +42,26 @@ class DataTest(object):
                 Expected %s
                 Found %s\n''' % (column, row_id, value, found))
 
+    def exists(self, row_id, column):
+        """test that the value at the given row, col index in exists"""
+        self.count += 1
+        self.checked_ids.append(row_id)
+
+        if pd.isnull(self.data.loc[row_id, column]):
+            self.failed += 1
+            self.errors.append('''NULL value in %s at id: %s
+                Expected a value to exist\n''' % (column, row_id))
+
+    def not_exists(self, row_id, column):
+        """test that the value at the given row, col index in exists"""
+        self.count += 1
+        self.checked_ids.append(row_id)
+
+        if not pd.isnull(self.data.loc[row_id, column]):
+            self.failed += 1
+            self.errors.append('''Non-NULL value found in %s at id: %s
+                Expected no value to exist\n''' % (column, row_id))
+
     def matches(self, row_id, column, regex):
         """test that the value at the given row, col index in matches regex"""
         self.count += 1
