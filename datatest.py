@@ -1,5 +1,6 @@
 """Simple test class for evaluating data output by our business logic"""
 import atexit
+import datetime
 import re
 import sys
 import pandas as pd
@@ -29,9 +30,8 @@ class DataTest(object):
             print 'ERROR: DateTest.finish() NOT CALLED: NO TEST OUTPUT SHOWN!'
             sys.exit(1)
 
-
     def equals(self, row_id, column, value):
-        """test that the value at the given row, col index in matches value"""
+        """test that the value at the given row, col index matches value"""
         self.count += 1
         self.checked_ids.append(row_id)
 
@@ -43,7 +43,7 @@ class DataTest(object):
                 Found %s\n''' % (column, row_id, value, found))
 
     def exists(self, row_id, column):
-        """test that the value at the given row, col index in exists"""
+        """test that the value at the given row, col index exists"""
         self.count += 1
         self.checked_ids.append(row_id)
 
@@ -53,7 +53,7 @@ class DataTest(object):
                 Expected a value to exist\n''' % (column, row_id))
 
     def not_exists(self, row_id, column):
-        """test that the value at the given row, col index in exists"""
+        """test that the value at the given row, col index exists"""
         self.count += 1
         self.checked_ids.append(row_id)
 
@@ -61,6 +61,24 @@ class DataTest(object):
             self.failed += 1
             self.errors.append('''Non-NULL value found in %s at id: %s
                 Expected no value to exist\n''' % (column, row_id))
+
+    def date_in_range(self, row_id, column, range_start, range_end):
+        """test that the value at the given row, col index matches regex"""
+        self.count += 1
+        self.checked_ids.append(row_id)
+
+        if not isinstance(range_start, datetime.datetime):
+            raise TypeError('input %s to date_in_range was not a datetime.datetime' % range_start)
+
+        if not isinstance(range_end, datetime.datetime):
+            raise TypeError('input %s to date_in_range was not a datetime.datetime' % range_end)
+
+        found = self.data.at[row_id, column]
+        if not range_start <= found <= range_end:
+            self.failed += 1
+            self.errors.append('''Date out of range found in %s at id: %s
+                Expected date between %s and %s
+                Found %s\n''' % (column, row_id, range_start, range_end, found))
 
     def matches(self, row_id, column, regex):
         """test that the value at the given row, col index in matches regex"""
