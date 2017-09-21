@@ -1,10 +1,7 @@
-#!/usr/bin/env python2
 """Simple test class for evaluating data output by our business logic"""
 import atexit
 import datetime
-import os
 import re
-import subprocess
 import sys
 import pandas as pd
 
@@ -131,38 +128,3 @@ class DataTest(object):
             sys.exit(1)
         print 'OK: %d tests passed' % self.count
         sys.exit(0)
-
-def fancy_wrap(test_name):
-    """ pad with lines of # """
-    wrapper = ''
-    wrapper = '#' * len(test_name) + wrapper
-    wrapper = '\n%s\n' % wrapper
-    return wrapper + test_name + wrapper
-
-def check_wrap_run(test_name, _fail_count):
-    """ run and report for if file matches naming convetion """
-    if not test_name.endswith('_datatest.py'):
-        return 0
-    print fancy_wrap(test_name)
-    try:
-        subprocess.check_call(['python', test_name])
-        return 0
-    except subprocess.CalledProcessError:
-        return 1
-
-def run_tests():
-    """ main function """
-    _fail_count = 0
-    if len(sys.argv) > 1:
-        for test_cand in sys.argv[1:]:
-            _fail_count += check_wrap_run(test_cand, _fail_count)
-    else:
-        # traverse ./testing/ directory, and execute all files ending in '_datatest.py'
-        for root, _, files in os.walk("testing"):
-            for test_cand in files:
-                _fail_count += check_wrap_run(os.path.join(root, test_cand), _fail_count)
-
-    sys.exit(_fail_count)
-
-if __name__ == '__main__':
-    run_tests()
