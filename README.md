@@ -61,3 +61,66 @@ would show output:
 ```
 OK: 5 tests passed
 ```
+
+
+## datatester.py
+datatester.py is a helper script included with the datatest module which locates and executes tests.
+Its behavior is as follows:
+ - If no command line arguments are given, it recursively descends into ```./testing``` and calls python on all files ending with ```_datatest.py```
+ - If command line arguments are given, it calls python on all arguments ending with ```_datatest.py```
+ - In either case it prints the name of the file being executed padded with `#####` and its exit code is 0 if all tests pass, 1 (with a special message) if no tests are found, and the number of test files with errors in all other cases.
+
+### example
+consider the ```testing/`` directory of this repo.
+its contents are as follows:
+```
+testing
+├── error_datatest.py
+└── ok_datatest.py
+```
+
+running ```datatester.py``` in the base directory of ths repo exits with code 1 and produces
+```
+
+#########################
+testing/error_datatest.py
+#########################
+
+WARNING: The following IDs were not tested at all: j2 j3
+ERROR: 3/6 tests failed:
+
+Bad value in num at id: j1
+                Expected 0
+                Found 1
+
+Bad format in num at id j1:
+                Expected to match \D
+                Found 1
+
+Bad format in num at id j3:
+                Expected to match [012]
+                Found 3
+
+
+######################
+testing/ok_datatest.py
+######################
+
+OK: 7 tests passed
+```
+
+running ```datatester.py testing/ok_datatest.py``` exits with code 0 and produces
+```
+
+######################
+testing/ok_datatest.py
+######################
+
+OK: 7 tests passed
+```
+
+running ```datatester.py fooBar.js``` exits with code 1 and produces
+```
+
+No tests found
+```
