@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 """Simple test class for evaluating data output by our business logic"""
 import atexit
 import datetime
