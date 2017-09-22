@@ -1,2 +1,3 @@
 *.pyc
 .cache/
+datatest.egg-info/
