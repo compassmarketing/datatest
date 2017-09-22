@@ -8,5 +8,5 @@ setup(name='datatest',
       author='Ed Jaros',
       author_email='ejaros@cmsdm.com',
       packages=['datatest'],
-      scripts=['datatest/datatester.py'],
+      scripts=['datatest/datatest'],
      )
