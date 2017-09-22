@@ -9,4 +9,8 @@ setup(name='datatest',
       author_email='ejaros@cmsdm.com',
       packages=['datatest'],
       scripts=['scripts/datatest'],
+      install_requires=[
+          'pandas',
+          'numpy',
+      ],
      )
