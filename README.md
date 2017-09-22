@@ -63,8 +63,8 @@ OK: 5 tests passed
 ```
 
 
-## datatester.py
-datatester.py is a helper script included with the datatest module which locates and executes tests.
+## datatest
+datatest is a helper script included with the datatest module which locates and executes tests.
 Its behavior is as follows:
  - If no command line arguments are given, it recursively descends into ```./testing``` and calls python on all files ending with ```_datatest.py```
  - If command line arguments are given, it calls python on all arguments ending with ```_datatest.py```
@@ -79,7 +79,7 @@ testing
 └── ok_datatest.py
 ```
 
-running ```datatester.py``` in the base directory of ths repo exits with code 1 and produces
+running ```datatest``` in the base directory of ths repo exits with code 1 and produces
 ```
 
 #########################
@@ -109,7 +109,7 @@ testing/ok_datatest.py
 OK: 7 tests passed
 ```
 
-running ```datatester.py testing/ok_datatest.py``` exits with code 0 and produces
+running ```datatest testing/ok_datatest.py``` exits with code 0 and produces
 ```
 
 ######################
@@ -119,7 +119,7 @@ testing/ok_datatest.py
 OK: 7 tests passed
 ```
 
-running ```datatester.py fooBar.js``` exits with code 1 and produces
+running ```datatest fooBar.js``` exits with code 1 and produces
 ```
 
 No tests found
