@@ -1,9 +1,19 @@
 """ unit tests for datatest module """
 from datetime import datetime
+import sys, os
 import pytest
 import pandas as pd
 import numpy as np
+
 from datatest import DataTest
+
+
+def createCSV():
+    import csv
+    with open('/tmp/datatest.csv', 'wb') as csvfile:
+        w = csv.writer(csvfile)
+        w.writerow(['a','b','c'])
+        w.writerow(['This', 'Is', 'Great'])
 
 # pylint: disable=redefined-outer-name
 # disable warning to allow re-use of pytest fixture

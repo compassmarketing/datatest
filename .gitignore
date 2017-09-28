@@ -1,3 +1,5 @@
 *.pyc
 .cache/
 datatest.egg-info/
+venv/
+.eggs/

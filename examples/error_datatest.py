@@ -1,5 +1,7 @@
-#!/usr/bin/env python2.7
 """ simple demonstration of compass test class with errors """
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)),'..'))
 
 from datatest import DataTest
 import pandas as pd
