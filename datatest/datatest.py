@@ -102,14 +102,14 @@ class DataTest(object):
         self.count += 1
         rex = re.compile(regex)
 
-        for row in self.data.itertuples():
-            found = getattr(row, column)
+        for i, row in self.data.iterrows():
+            found = row[column]
             if not isinstance(found, str):
                 found = str(found)
             if not rex.match(found):
-                self.errors.append('''Bad format in %s at id %s:
+                self.errors.append('''Bad format in %s:
                 Expected to match %s
-                Found %s\n''' % (column, getattr(row, 'Index'), regex, found))
+                Found %s\n''' % (column, regex, found))
                 self.failed += 1
                 break
 
