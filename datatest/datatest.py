@@ -103,6 +103,7 @@ class DataTest(object):
         rex = re.compile(regex)
 
         for i, row in self.data.iterrows():
+            self.checked_ids.append(i)
             found = row[column]
             if not isinstance(found, str):
                 found = str(found)
@@ -118,6 +119,7 @@ class DataTest(object):
         self.finished = True
 
         unchecked_ids = list(self.ids.difference(set(self.checked_ids)))
+        unchecked_ids = map(str, unchecked_ids) # convert to string for priting
         if unchecked_ids:
             print 'WARNING: The following IDs were not tested at all: %s' % ' '.join(unchecked_ids)
 
